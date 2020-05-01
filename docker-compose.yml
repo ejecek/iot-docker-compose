@@ -10,6 +10,7 @@ influxdb:
     # Data persistency
     # sudo mkdir -p /srv/docker/influxdb/data
     - /srv/docker/influxdb/data:/var/lib/influxdb
+    - ./influxdb.conf:/etc/influxdb/influxdb.conf
 
 telegraf:
   image: telegraf:latest
