@@ -41,6 +41,7 @@ grafana:
     
 node-red:
   image: nodered/node-red:latest
+  container_name: node-red
   environment:
     - TZ=Europe/Warsaw
   ports:
