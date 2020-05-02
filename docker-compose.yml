@@ -37,3 +37,14 @@ grafana:
     # Data persistency
     # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
     - /srv/docker/grafana/data:/var/lib/grafana
+    
+node-red:
+  image: nodered/node-red:latest
+  environment:
+    - TZ=Europe/Warsaw
+  ports:
+    - "1880:1880"
+  links:
+    - influxdb
+  volumes:
+    - /srv/docker/node-red/data:/data
