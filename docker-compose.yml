@@ -46,6 +46,7 @@ node-red:
     - TZ=Europe/Warsaw
   ports:
     - "1880:1880"
+    - "2001:2001/udp"
   user: "0"
   links:
     - influxdb
