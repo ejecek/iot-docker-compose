@@ -6,6 +6,7 @@ influxdb:
     - "8089:8089/udp"
   env_file:
     - 'env.influxdb'
+  user: "0"
   volumes:
     # Data persistency
     # sudo mkdir -p /srv/docker/influxdb/data
@@ -44,6 +45,7 @@ node-red:
     - TZ=Europe/Warsaw
   ports:
     - "1880:1880"
+  user: "0"
   links:
     - influxdb
   volumes:
