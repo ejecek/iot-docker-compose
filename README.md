@@ -19,7 +19,8 @@ Run your stack:
 sudo mkdir -p /srv/docker/grafana/data
 docker-compose up -d
 sudo chown -R 472:472 /srv/docker/grafana/data
-
+sudo mkdir -p /srv/docker/influxdb/data
+sudo chown -R 472:472 /srv/docker/influxdb/data
 ```
 
 Show me the logs:
