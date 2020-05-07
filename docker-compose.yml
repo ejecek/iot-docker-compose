@@ -1,59 +1,60 @@
 version: "3"
-influxdb:
-  image: influxdb:latest
-  container_name: influxdb
-  restart: always
-  ports:
-    - "8086:8086"
-    - "8089:8089/udp"
-  env_file:
-    - 'env.influxdb'
-  user: "0"
-  volumes:
-    # Data persistency
-    # sudo mkdir -p /srv/docker/influxdb/data
-    - /srv/docker/influxdb/data:/var/lib/influxdb
-    - ./influxdb.conf:/etc/influxdb/influxdb.conf
-  command:
-    - '-config'
-    - '/etc/influxdb/influxdb.conf'
+services:
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    restart: always
+    ports:
+      - "8086:8086"
+      - "8089:8089/udp"
+    env_file:
+      - 'env.influxdb'
+    user: "0"
+    volumes:
+      # Data persistency
+      # sudo mkdir -p /srv/docker/influxdb/data
+      - /srv/docker/influxdb/data:/var/lib/influxdb
+      - ./influxdb.conf:/etc/influxdb/influxdb.conf
+    command:
+      - '-config'
+      - '/etc/influxdb/influxdb.conf'
 
-telegraf:
-  image: telegraf:latest
-  container_name: telegraf
-  restart: always
-  links:
-    - influxdb
-  volumes:
-    - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+  telegraf:
+    image: telegraf:latest
+    container_name: telegraf
+    restart: always
+    links:
+      - influxdb
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
 
-grafana:
-  image: grafana/grafana:latest
-  container_name: grafana
-  restart: always
-  ports:
-    - "3000:3000"
-  env_file:
-    - 'env.grafana'
-  user: "0"
-  links:
-    - influxdb
-  volumes:
-    # Data persistency
-    # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
-    - /srv/docker/grafana/data:/var/lib/grafana
-    
-node-red:
-  image: nodered/node-red:latest
-  container_name: node-red
-  restart: always
-  environment:
-    - TZ=Europe/Warsaw
-  ports:
-    - "1880:1880"
-    - "2001:2001/udp"
-  user: "0"
-  links:
-    - influxdb
-  volumes:
-    - /srv/docker/node-red/data:/data
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    env_file:
+      - 'env.grafana'
+    user: "0"
+    links:
+      - influxdb
+    volumes:
+      # Data persistency
+      # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
+      - /srv/docker/grafana/data:/var/lib/grafana
+      
+  node-red:
+    image: nodered/node-red:latest
+    container_name: node-red
+    restart: always
+    environment:
+      - TZ=Europe/Warsaw
+    ports:
+      - "1880:1880"
+      - "2001:2001/udp"
+    user: "0"
+    links:
+      - influxdb
+    volumes:
+      - /srv/docker/node-red/data:/data
