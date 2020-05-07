@@ -1,3 +1,4 @@
+version: "3"
 influxdb:
   image: influxdb:latest
   container_name: influxdb
